@@ -22,7 +22,7 @@ function addTrip(event){
 
     // Store data
     storage.setAppData(formData.city, formData.date)
-    
+
     updateApp(formData)
 }
 
@@ -30,13 +30,13 @@ function addTrip(event){
 function updateApp(data){
     // Start trip countown
     const daysToTrip = displayCountdown(data.date)
-    
+
     // Async POST request to get weather
     const getWeather = async ( url = '', data = {})=>{
         try {
             const response = await fetch(url, {
-                method: 'POST', 
-                credentials: 'same-origin', 
+                method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -56,8 +56,8 @@ function updateApp(data){
     const getImage = async ( url = '', data = {})=>{
         try {
             const response2 = await fetch(url, {
-                method: 'POST', 
-                credentials: 'same-origin', 
+                method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                 },

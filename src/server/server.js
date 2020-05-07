@@ -39,9 +39,10 @@ server.listen(port, function () {
 // Set up node-fetch
 const fetch = require("node-fetch")
 
+
 // Return lat and long from city name
 async function cityCoords(city) {
-    const url = encodeURI(`http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=${process.env.GEONAMES_API_USR}`)
+    const url = encodeURI(`http://api.geonames.org/searchJSON?q=${city}&username=${process.env.GEONAMES_API_USR}`)
 
     const getData = async url => {
         try {
@@ -75,7 +76,7 @@ async function getWeather(coords, tripDate) {
     // Time calculations for days
     var days = Math.floor(distance / (1000 * 60 * 60 * 24))
 
-    var url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${WEATHERBIT_API_KEY}`
+    var url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${process.env.WEATHERBIT_API_KEY}`
 
 
     // If the trip is more than 7 days away, get future weather forcast
