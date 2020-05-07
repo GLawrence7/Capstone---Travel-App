@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&family=Fredoka+One&display=swap');
+
+
+/* Site-wide design */
+$primary-color: #d2d4c8;
+$secondary-color: #6d1a36;
+$background-color: #53917e;
+$button-hover-color: #6d1a36;
+$text-color: #2e3532;
+$text-hover-color: #e0e2db;
+$border-radius: 10px;
+$bg-color: #53917e;
+$font-header: 'Fredoka One', cursive;
+$font-main: 'Baloo Tamma 2', cursive;
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: $bg-color;
+    font-family: $font-header;
+    align-items: center;
+}
+
+main {
+    flex: 2;
+    font-family: $font-main;
+}
+
+section {
+    max-width: 800px;
+    margin: 50px auto;
+
+    #section-results {
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-family: $font-header;
+        }
+
+        .results {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.container {
+    text-align: center;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    padding-bottom: 10px;
+}
+
+#trip {
+    justify-content: center;
+    text-align: center;
+}
+
+#city {
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1em;
+    width: 160px;
+}
+
+#date {
+    padding: 10px;
+    width: 160px;
+    // width: 100%;
+    font-size: 1em;
+}
+
+h2 {
+    padding-bottom: 20px;
+}
+
+h3 {
+    padding-bottom: 10px;
+    font-size: 1.5em;
+}
+
+#weatherHolder {
+    padding-bottom: 10px;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 20px 40px;
+    border-radius: 5px;
+    font-size: 1em;
+
+    &:hover {
+        background-color: $button-hover-color;
+        color: $text-hover-color;
+    }
+}
+
+footer {
+    font-family: $font-main;
+}
