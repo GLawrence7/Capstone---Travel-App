@@ -6,7 +6,7 @@ class UI {
     }
 
     updateWeatherUI(weatherInfo) {
-        document.getElementById('high').innerHTML = `${weatherInfo.temp}\u00B0 F`
+        document.getElementById('high').innerHTML = `${weatherInfo.temp}\u00B0 C`
         document.getElementById('summary').innerHTML = `${weatherInfo.summary}`
     }
 

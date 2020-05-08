@@ -80,21 +80,19 @@ async function getWeather(coords, tripDate) {
 
     // Time calculations for days
     var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    console.log(weatherAPIKey);
 
-    var url = `https://api.weatherbit.io/v2.0/forecast/daily	&lat=${coords.lat}&lon${coords.long}&key=${weatherAPIKey}`
-
-    // If the trip is more than 7 days away, get future weather forcast
-    if (days > 7) {
-        url += `,${countDownDate / 1000}`
-    }
+    var url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coords.lat}&lon=${coords.long}&key=${weatherAPIKey}&days=${days}`;
 
     const getData = async url => {
         try {
             const response = await fetch(url)
             const json = await response.json()
-            const myResData = {
-                temp: json.temp,
-                summary: json.weather}
+            const lastDate = json.data[json.data.length - 1];
+            const myResData= {
+                temp: lastDate.temp,
+                summary: lastDate.weather.description
+            }
             return myResData
             // return json
         } catch (error) {
