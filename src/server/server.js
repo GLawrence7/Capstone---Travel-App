@@ -10,6 +10,11 @@ const express = require('express')
 // Start up server instance
 const server = express()
 
+// Set global variables
+const weatherAPIKey = process.env.WEATHERBIT_API_KEY;
+const pixabayAPIKey = process.env.PIXABAY_API_KEY;
+const geonamesAPIUsr = process.env.GEONAMES_API_USR;
+
 // Set up body-parser
 const bodyParser = require('body-parser')
 server.use(bodyParser.urlencoded({ extended: false }))
@@ -30,7 +35,7 @@ server.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
 
-// Spin up the server
+// Start up the server
 var port = 8082
 server.listen(port, function () {
     console.log(`Running on port: ${port}`)
@@ -42,7 +47,7 @@ const fetch = require("node-fetch")
 
 // Return lat and long from city name
 async function cityCoords(city) {
-    const url = encodeURI(`http://api.geonames.org/searchJSON?q=${city}&username=${process.env.GEONAMES_API_USR}`)
+    const url = encodeURI(`http://api.geonames.org/searchJSON?q=${city}&username=${geonamesAPIUsr}`)
 
     const getData = async url => {
         try {
@@ -62,7 +67,7 @@ async function cityCoords(city) {
 
 // Return weather from lat and long coords
 async function getWeather(coords, tripDate) {
-    const latLon = `${coords.lat},${coords.long}`
+    const latLong = `${coords.lat},${coords.long}`
 
     // Set the date we're counting down to
     var countDownDate = new Date(tripDate).getTime()
@@ -76,8 +81,7 @@ async function getWeather(coords, tripDate) {
     // Time calculations for days
     var days = Math.floor(distance / (1000 * 60 * 60 * 24))
 
-    var url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${process.env.WEATHERBIT_API_KEY}`
-
+    var url = `https://api.weatherbit.io/v2.0/forecast/daily	&lat=${coords.lat}&lon${coords.long}&key=${weatherAPIKey}`
 
     // If the trip is more than 7 days away, get future weather forcast
     if (days > 7) {
@@ -89,8 +93,8 @@ async function getWeather(coords, tripDate) {
             const response = await fetch(url)
             const json = await response.json()
             const myResData = {
-                temp: json.data.temp,
-                summary: json.data.weather}
+                temp: json.temp,
+                summary: json.weather}
             return myResData
             // return json
         } catch (error) {
@@ -109,7 +113,7 @@ server.post('/weather', async function (req, res) {
 
 // return pixabay image link
 async function getImageLink(search) {
-    var url = encodeURI(`https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${search}&category=places`)
+    var url = encodeURI(`https://pixabay.com/api/?key=${pixabayAPIKey}&q=${search}&category=places`)
 
     const getData = async url => {
         try {
